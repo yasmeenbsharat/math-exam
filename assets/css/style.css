@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200;300&display=swap');
+body{
+    overflow: hidden;
+    font-family: 'Martian Mono', monospace;
+}
+button{
+    
+    /* padding: 10px 0px !important; */
+    background-color: #24B0B0 !important;
+}
+.user-name-screen{
+    border:2px solid #24B0B0 !important;
+}
