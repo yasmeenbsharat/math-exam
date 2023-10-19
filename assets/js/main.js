@@ -10,8 +10,6 @@ let score=0;
 let users;
 let timeoutId;
 const tbody=document.getElementById("tbody");
-
-const answerValue=document.getElementById("answer");
 const examContent=document.getElementById("examContent");
 
 function getRandomNumber(min, max) {
@@ -60,6 +58,7 @@ if(JSON.parse(localStorage.getItem("users"))==null){
 
 
 function displayAnswer(value){
+    const answerValue=document.getElementById("answer");
     console.log(value);
     if(value==''){
         answer='';
