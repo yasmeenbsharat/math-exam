@@ -1,13 +1,16 @@
 document.querySelector('form').onsubmit = (e) => {
     e.preventDefault();
   }
+  window.addEventListener('beforeunload', function (event) {
+    localStorage.clear(); 
+  });
 let result;
 let answer='';
 let score=0;
-let users=[];
+let users;
 let timeoutId;
 const tbody=document.getElementById("tbody");
-const equation=document.getElementById("equation");
+
 const answerValue=document.getElementById("answer");
 const examContent=document.getElementById("examContent");
 
@@ -30,7 +33,15 @@ function getRandomNumber(min, max) {
   }
   
  function initApp(){
-    generateRandomEquation();
+    
+if(JSON.parse(localStorage.getItem("users"))==null){
+    users=[];
+  } 
+  else{
+    users=JSON.parse(localStorage.getItem("users"));
+  }
+  displayExam();
+   
  }
 
  function checkAnswer(){
@@ -58,13 +69,60 @@ function displayAnswer(value){
 
  answerValue.value=answer;
 }
+function displayExam(){
+    
+    examContent.innerHTML=` <div class="calculator w-75  text-center m-auto" id="examContent">
+    <p class="mt-4 fs-5 fw-bolder">Score : <span id="score">0</span></p>
+    <p class="mt-2 fs-5 fw-bolder" id="equation"></p>
+    <input type="text" id="answer" class="calculator-screen z-depth-1 mb-3 d-inline-block w-75 m-auto py-2 px-3" placeholder="Enter your answer" value=""  />
+  
+    <div class="calculator-keys d-flex flex-wrap justify-content-center ">
+ 
+    <button type="button" value="1" class="btn me-2 px-4 py-2   mb-2 col-md-3" onclick="displayAnswer('1')" >1</button>
+    <button type="button" value="2" class="btn  me-2  px-4 py-2  mb-2 col-md-3" onclick="displayAnswer('2')">2</button>
+    <button type="button" value="3" class="btn  me-2 px-4 py-2 mb-2 col-md-3" onclick="displayAnswer('3')">3</button>
+
+    <button type="button" value="4" class="btn me-2 px-4 py-2   mb-2 col-md-3" onclick="displayAnswer('4')">4</button>
+    <button type="button" value="5" class="btn  me-2 px-4 py-2   mb-2 col-md-3" onclick="displayAnswer('5')">5</button>
+    <button type="button" value="6" class="btn  me-2 px-4 py-2   mb-2  col-md-3" onclick="displayAnswer('6')">6</button>
+
+
+    
+    <button type="button" value="7" class="btn  me-2 px-4 py-2  mb-2   col-md-3" onclick="displayAnswer('7')">7</button>
+    <button type="button" value="8" class="btn  me-2 px-4 py-2  mb-2   col-md-3" onclick="displayAnswer('8')">8</button>
+    <button type="button" value="9" class="btn me-2 px-4 py-2   mb-2  col-md-3" onclick="displayAnswer('9')">9</button>
+   
+
+    <button type="button" class="all-clear function btn me-2 px-4 py-2   mb-2  col-md-3" value="all-clear" onclick="displayAnswer('')">Clear</button>
+    <button type="button" value="8" class="btn  me-2 px-4 py-2    mb-2 col-md-3" onclick="displayAnswer('0')">0</button>
+    <button type="button" value="9" class="btn  me-2 px-4 py-2   mb-2  col-md-3" onclick="displayAnswer('-')">-</button>
+    <button type="button" class="btn mt-3   py-2 col-md-10 " value="" onclick="checkAnswer()">Enter</button>
+    </div>
+  </div>`
+  const equation=document.getElementById("equation");
+  generateRandomEquation();
+}
 function displayUserNameScreen(){
     examContent.innerHTML=`<input type="text" id="userName" class="user-name-screen z-depth-1 my-5 d-inline-block w-75 m-auto py-2 px-3" onkeyup="getUserName()"  placeholder="Enter your name" value=""  />`
 }
 function displayResults(){
-    users.sort((a, b) => a.userScore - b.userScore);
-    
+    users.sort((a, b) => b.userScore - a.userScore);
+    var result='';
+    users.map((user, index) => {
+        result += `
+        <tr>
+        <th scope="row">${index+1}</th>
+        <td>${user.userName}</td>
+        <td>${user.userScore}</td>
+      </tr>
+     ` });
+
+
+     tbody.innerHTML=result;
+ 
+
 }
+
 
 
 function getUserName() {
@@ -87,9 +145,9 @@ function addUser(name){
 }
 function refreshPage(){
    
-   
-    
-    //location.reload(); 
+    displayResults();
+    displayExam();
+    // location.reload(); 
 }
 
 initApp();
