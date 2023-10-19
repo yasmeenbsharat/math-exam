@@ -26,10 +26,10 @@
     <section>
         <div class="row mt-4">
             <div class="col-md-4 py-4  text-center border border-2 ms-5" >
-              <h2 class="fw-bold">Math Exam </h2>
+              <h2 class="fw-bold mt-5">Math Exam </h2>
               
               <div class="calculator w-75  text-center m-auto" id="examContent">
-                <p class="mt-5 fs-5 fw-bolder">Score : <span id="score">0</span></p>
+                <p class="mt-4 fs-5 fw-bolder">Score : <span id="score">0</span></p>
                 <p class="mt-2 fs-5 fw-bolder" id="equation"></p>
                 <input type="text" id="answer" class="calculator-screen z-depth-1 mb-3 d-inline-block w-75 m-auto py-2 px-3" placeholder="Enter your answer" value=""  />
               
@@ -58,9 +58,40 @@
               </div>
             </div>
             <div class="col-md-7  py-4 text-center border border-2 ms-3 pe-2">
-              <form action="">
-                <button onclick="refreshPage()">Refresh</button>
+              <h2 class="fw-bold my-5">Leaderboard  </h2>
+              <form action="" >
+                <button class="w-100 p-2 fs-5 border-0 rounded-2 text-light" onclick="refreshPage()">Refresh</button>
               </form>
+
+              <table class="table mt-5">
+                <thead>
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Score</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody">
+                  <!-- <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                  </tr> -->
+                </tbody>
+              </table>
             </div>
         </div>
     </section>

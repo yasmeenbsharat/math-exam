@@ -1,7 +1,12 @@
+document.querySelector('form').onsubmit = (e) => {
+    e.preventDefault();
+  }
 let result;
 let answer='';
 let score=0;
 let users=[];
+let timeoutId;
+const tbody=document.getElementById("tbody");
 const equation=document.getElementById("equation");
 const answerValue=document.getElementById("answer");
 const examContent=document.getElementById("examContent");
@@ -54,16 +59,37 @@ function displayAnswer(value){
  answerValue.value=answer;
 }
 function displayUserNameScreen(){
-    examContent.innerHTML=`<input type="text" id="userName" class="user-name-screen z-depth-1 my-5 d-inline-block w-75 m-auto py-2 px-3" placeholder="Enter your name" value=""  />`
+    examContent.innerHTML=`<input type="text" id="userName" class="user-name-screen z-depth-1 my-5 d-inline-block w-75 m-auto py-2 px-3" onkeyup="getUserName()"  placeholder="Enter your name" value=""  />`
+}
+function displayResults(){
+    users.sort((a, b) => a.userScore - b.userScore);
+    
 }
 
-function addUser(){
-    
 
+function getUserName() {
+  const userName = document.getElementById("userName");
+  const name = userName.value;
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(function() {
+    console.log(name);
+    addUser(name);
+  }, 500); 
+}
 
+function addUser(name){
+    var user = {
+        userName: name,
+        userScore:score,
+    }
+    users.push(user);
+    localStorage.setItem("users",JSON.stringify(users));
 }
 function refreshPage(){
-    location.reload(); 
+   
+   
+    
+    //location.reload(); 
 }
 
 initApp();
